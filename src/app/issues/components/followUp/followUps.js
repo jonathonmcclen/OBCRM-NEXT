@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabaseClient as supabase } from "../../../../config/supabase-client";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 import { TrashIcon, PencilIcon, EyeIcon } from "@heroicons/react/24/outline";
 
@@ -130,15 +130,15 @@ function FollowUps({ id }) {
                                   className="text-indigo-600 hover:text-indigo-900"
                                   to={"/issues/" + prop.id + "/edit"}
                                 >
-                                  <PencilIcon className="h-[18px] inline-block mr-2" />
+                                  <PencilIcon className="mr-2 inline-block h-[18px]" />
                                 </Link>
                                 <Link
                                   className="text-indigo-600 hover:text-indigo-900"
                                   to={"/issues/" + prop.id}
                                 >
-                                  <EyeIcon className="h-[20px] inline-block mr-2" />
+                                  <EyeIcon className="mr-2 inline-block h-[20px]" />
                                 </Link>
-                                <TrashIcon className="h-[20px] inline-block mr-2" />
+                                <TrashIcon className="mr-2 inline-block h-[20px]" />
                                 <span className="sr-only">, {prop.name}</span>
                               </td>
                             </tr>

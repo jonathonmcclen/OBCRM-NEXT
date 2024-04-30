@@ -16,7 +16,6 @@ import {
 } from "@heroicons/react/20/solid";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useLocation } from "react-router-dom";
 import { useAuth } from "../hooks/Auth";
 import { supabaseClient as supabase } from "../config/supabase-client";
 import Logo from "../assets/REGENTLOGO100.jpg";
