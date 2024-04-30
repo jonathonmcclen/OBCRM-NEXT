@@ -1,0 +1,11 @@
+{
+	"extends": "../../tsconfig.json",
+	"include": ["next-env.d.ts", "ui/*", "*.ts", "*.mjs", ".next/types/**/*.ts"],
+	"compilerOptions": {
+		"jsx": "preserve",
+		"paths": {
+			"ui/*": ["./ui/*"],
+			"utils": ["./utils.ts"]
+		}
+	}
+}

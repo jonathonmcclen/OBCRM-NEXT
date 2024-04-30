@@ -1,0 +1,280 @@
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    // NOTE: When using mysql or sqlserver, uncomment the @db.Text annotations in model Account below
+    // Further reading:
+    // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
+    // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
+    url      = env("DATABASE_URL")
+}
+
+model Challenge {
+    id          Int     @id @default(autoincrement())
+    badge       String
+    name        String
+    description String
+    season      Season? @relation(fields: [seasonId], references: [id])
+    // has many items 
+    seasonId    Int?
+}
+
+model Comment {
+    id      Int    @id @default(autoincrement())
+    post    Post   @relation(fields: [postId], references: [id])
+    author  User   @relation(fields: [userId], references: [id])
+    content String
+    postId  Int
+    userId  String
+}
+
+model SimType {
+    id          Int          @id @default(autoincrement())
+    names       String
+    description String
+    cost        Int
+    gestation   Int
+    path        String
+    // has many items
+    Simulation  Simulation[]
+}
+
+enum SimSize {
+    DWARF
+    TINY
+    SMALL
+    MEDIUM
+    LARGE
+    EXTRA_LARGE
+    HUGE
+    GOLIATH
+    TITAN
+}
+
+model Simulation {
+    id         Int      @id @default(autoincrement())
+    createdAt  DateTime @default(now())
+    name       String
+    last_roll  DateTime
+    simTypeId  Int
+    userId     String
+    population Int      @default(100)
+    size       SimSize
+    type       SimType  @relation(fields: [simTypeId], references: [id])
+    user       User     @relation(fields: [userId], references: [id])
+    // uuid
+}
+
+model Item {
+    id            Int             @id @default(autoincrement())
+    name          String
+    description   String
+    sellPrice     Int
+    rarity        Int
+    path          String
+    // belongs to many planets
+    // belongs to many challanges
+    Inventory     Inventory[]
+    ShopInventory ShopInventory[]
+}
+
+//! WANTED: to updat einventory to allow stacking and not force
+//! WANTED: make items moveable to alow for protected inventory and not protected intentory
+model Inventory {
+    id      Int    @id @default(autoincrement())
+    user    User   @relation(fields: [userId], references: [id])
+    item    Item   @relation(fields: [itemsId], references: [id])
+    count   Int
+    userId  String
+    itemsId Int
+}
+
+model ShopInventory {
+    id        Int     @id @default(autoincrement())
+    price     Int
+    sale      Boolean @default(false)
+    salePrice Int
+    items     Item[]
+    itemsId   Int
+}
+
+// trades of items between two players
+model Trade {
+    id          Int      @id @default(autoincrement())
+    createdAt   DateTime @default(now())
+    status      String
+    turn        Int
+    ship        Ship     @relation(fields: [shipId], references: [id])
+    destination User     @relation(fields: [userId], references: [id])
+    shipId      Int
+    userId      String
+}
+
+// Bosses can be defeated either by offerings or damage delt by ships/or fleets
+model Boss {
+    id          Int          @id @default(autoincrement())
+    createdAt   DateTime     @default(now())
+    name        String
+    description String
+    active      Boolean      @default(false)
+    health      Int
+    levels      levels[]
+    BossBattle  BossBattle[]
+    Events      Events[]
+}
+
+model levels {
+    id     Int  @id @default(autoincrement())
+    boss   Boss @relation(fields: [bossId], references: [id])
+    bossId Int
+}
+
+model BossBattle {
+    id     Int    @id @default(autoincrement())
+    boss   Boss   @relation(fields: [bossId], references: [id])
+    user   User   @relation(fields: [userId], references: [id])
+    level  Int
+    bossId Int
+    userId String
+}
+
+model Ship {
+    id         Int      @id @default(autoincrement())
+    type       ShipType @relation(fields: [shipTypeId], references: [id])
+    dmg        Int      @default(0)
+    dpt        Int // damage deals
+    shipTypeId Int
+    Trade      Trade[]
+}
+
+model ShipType {
+    id     Int    @id @default(autoincrement())
+    slots  Int
+    name   String
+    desc   String
+    health Int
+    ship   Ship[]
+}
+
+// INSTANCE EVENTS - events for one
+model InstEvents {
+    id Int @id @default(autoincrement())
+}
+
+// GLOBAL EVENTS - events for all
+model Events {
+    id        Int      @id @default(autoincrement())
+    createdAt DateTime @default(now())
+    name      String
+    notice    String
+    boss      Boss?    @relation(fields: [bossId], references: [id])
+    img       String // PATH 
+    icon      String // PATH
+    active    Boolean  @default(false)
+    bossId    Int?
+}
+
+// SEASONS - After Kickstarted or beta Seasons 
+// Mark big updates and come standard with a set of new challenges
+// Season has many challenges as well as a timeline of rewards based on season specific XP
+model Season {
+    id        Int         @id @default(autoincrement())
+    // has many chalenges 
+    // has many rewards 
+    Challenge Challenge[]
+    Rewards   Rewards[]
+}
+
+model seasonXp {
+    id     Int @id @default(autoincrement())
+    // Belongs to user 
+    // belongs to season
+    amount Int @default(0)
+    // has many rewards (starts out at 0 then denotes all rewards that have been collected so that they can not be collected again)
+}
+
+model Rewards {
+    id       Int    @id @default(autoincrement())
+    season   Season @relation(fields: [seasonId], references: [id])
+    seasonId Int
+}
+
+model Post {
+    id          Int       @id @default(autoincrement())
+    name        String
+    createdAt   DateTime  @default(now())
+    updatedAt   DateTime  @updatedAt
+    expired     Boolean   @default(false)
+    createdBy   User      @relation(fields: [createdById], references: [id])
+    createdById String
+    Comment     Comment[]
+
+    @@index([name])
+}
+
+// Necessary for Next auth
+model Account {
+    id                String  @id @default(cuid())
+    userId            String
+    type              String
+    provider          String
+    providerAccountId String
+    refresh_token     String? // @db.Text
+    access_token      String? // @db.Text
+    expires_at        Int?
+    token_type        String?
+    scope             String?
+    id_token          String? // @db.Text
+    session_state     String?
+    user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@unique([provider, providerAccountId])
+}
+
+model Session {
+    id           String   @id @default(cuid())
+    sessionToken String   @unique
+    userId       String
+    expires      DateTime
+    user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+    id            String       @id @default(cuid())
+    name          String?
+    email         String?      @unique
+    emailVerified DateTime?
+    image         String?
+    accounts      Account[]
+    sessions      Session[]
+    posts         Post[]
+    Comments      Comment[]
+    Simulations   Simulation[]
+    Inventory     Inventory[]
+    BossBattles   BossBattle[]
+    Trades        Trade[]
+}
+
+model VerificationToken {
+    identifier String
+    token      String   @unique
+    expires    DateTime
+
+    @@unique([identifier, token])
+}
+
+// RELEASE NOTES - FOR APP
+model Releases {
+    id      Int    @id @default(autoincrement())
+    title   String
+    content String // dangerously insert HTML
+}
+
+// AVATARS - Selectable for users profile
+model Avatars {
+    id   Int    @id @default(autoincrement())
+    path String
+}
