@@ -1,30 +1,28 @@
 import React from "react";
 import { Navbar, Button, Text, Card, Radio, useTheme } from "@nextui-org/react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
-function Menu({loggedIn}) {
+function Menu({ loggedIn }) {
   const [variant, setVariant] = React.useState("static");
-  const {isDark} = useTheme();
-  
-  return (
-      <Navbar isBordered={isDark} variant={"floating"}>
-        <Navbar.Brand>
-          <h1>META Miners</h1>
-        </Navbar.Brand>
-        {loggedIn && 
-        <>
-        <Navbar.Content hideIn="xs">
-            <Link to="/profile">Profile</Link>
-          <Link to="/inventory">Inventory</Link>
-          <Link to="/simulator">Simulator</Link>
-          <Link to="/simulator">Black Market</Link>
-        </Navbar.Content>
-        <Navbar.Content>
+  const { isDark } = useTheme();
 
-        </Navbar.Content>
+  return (
+    <Navbar isBordered={isDark} variant={"floating"}>
+      <Navbar.Brand>
+        <h1>META Miners</h1>
+      </Navbar.Brand>
+      {loggedIn && (
+        <>
+          <Navbar.Content hideIn="xs">
+            <Link to="/profile">Profile</Link>
+            <Link to="/inventory">Inventory</Link>
+            <Link to="/simulator">Simulator</Link>
+            <Link to="/simulator">Black Market</Link>
+          </Navbar.Content>
+          <Navbar.Content></Navbar.Content>
         </>
-        }
-        {!loggedIn && 
+      )}
+      {!loggedIn && (
         <Navbar.Content>
           <Link color="inherit" to="/login-signup">
             Login
@@ -35,9 +33,9 @@ function Menu({loggedIn}) {
             </Button>
           </Navbar.Item>
         </Navbar.Content>
-        }
-      </Navbar>    
-  )
+      )}
+    </Navbar>
+  );
 }
 
-export default Menu
+export default Menu;

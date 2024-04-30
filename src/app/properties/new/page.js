@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react";
 import { supabaseClient as supabase } from "../../../config/supabase-client";
 import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
-import { useParams } from "react-router-dom";
 import Link from "next/link";
 
 function NewProperty({ params }) {

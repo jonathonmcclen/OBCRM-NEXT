@@ -14,7 +14,9 @@ import {
   ChevronDownIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/react/20/solid";
-import { Link, useLocation } from "react-router-dom";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useLocation } from "react-router-dom";
 import { useAuth } from "../hooks/Auth";
 import { supabaseClient as supabase } from "../config/supabase-client";
 import Logo from "../assets/REGENTLOGO100.jpg";
@@ -91,7 +93,7 @@ export default function RootLayout2({ children }) {
       */}
       <div>
         <Transition.Root show={sidebarOpen}>
-          {console.log(useLocation().pathname)}
+          {console.log(usePathname().pathname)}
           <Dialog
             as="div"
             className="relative z-50 lg:hidden"
@@ -160,8 +162,8 @@ export default function RootLayout2({ children }) {
                                   className={classNames(
                                     item.current
                                       ? "bg-indigo-700 text-white"
-                                      : "text-indigo-200 hover:text-white hover:bg-indigo-700",
-                                    "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
+                                      : "text-indigo-200 hover:bg-indigo-700 hover:text-white",
+                                    "group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6",
                                   )}
                                 >
                                   <item.icon
@@ -169,7 +171,7 @@ export default function RootLayout2({ children }) {
                                       item.current
                                         ? "text-white"
                                         : "text-indigo-200 group-hover:text-white",
-                                      "h-6 w-6 shrink-0"
+                                      "h-6 w-6 shrink-0",
                                     )}
                                     aria-hidden="true"
                                   />
@@ -204,7 +206,7 @@ export default function RootLayout2({ children }) {
         <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
           {/* Sidebar component, swap this element with another sidebar if you like */}
           <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-indigo-600 px-6 pb-4">
-            <div className="flex h-26 pt-[20px] shrink-0 items-center">
+            <div className="h-26 flex shrink-0 items-center pt-[20px]">
               <img className="h-18 w-auto" src={Logo} alt="Your Company" />
             </div>
             <nav className="flex flex-1 flex-col">
@@ -216,10 +218,10 @@ export default function RootLayout2({ children }) {
                         <a
                           href={item.href}
                           className={classNames(
-                            useLocation().pathname.includes(item.href)
+                            usePathname().pathname.includes(item.href)
                               ? "bg-indigo-800 text-white"
-                              : "text-indigo-200 hover:text-white hover:bg-indigo-500",
-                            "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
+                              : "text-indigo-200 hover:bg-indigo-500 hover:text-white",
+                            "group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6",
                           )}
                         >
                           <item.icon
@@ -227,7 +229,7 @@ export default function RootLayout2({ children }) {
                               item.current
                                 ? "text-white"
                                 : "text-indigo-200 group-hover:text-white",
-                              "h-6 w-6 shrink-0"
+                              "h-6 w-6 shrink-0",
                             )}
                             aria-hidden="true"
                           />
@@ -335,7 +337,7 @@ export default function RootLayout2({ children }) {
                                   onClick={handleSignOut}
                                   className={classNames(
                                     active ? "bg-gray-50" : "",
-                                    "block px-3 py-1 text-sm leading-6 text-gray-900"
+                                    "block px-3 py-1 text-sm leading-6 text-gray-900",
                                   )}
                                 >
                                   {item.name}
@@ -349,7 +351,7 @@ export default function RootLayout2({ children }) {
                                   to={item.href}
                                   className={classNames(
                                     active ? "bg-gray-50" : "",
-                                    "block px-3 py-1 text-sm leading-6 text-gray-900"
+                                    "block px-3 py-1 text-sm leading-6 text-gray-900",
                                   )}
                                 >
                                   {item.name}

@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import Link from "next/link";
 import { supabaseClient as supabase } from "../../../config/supabase-client";
 import { PaperClipIcon } from "@heroicons/react/20/solid";

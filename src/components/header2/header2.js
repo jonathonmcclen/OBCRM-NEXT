@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import Button from "../Button";
 import SifiRandom from "../SifiRandom";
 import { useAuth } from "../../hooks/Auth";
@@ -45,9 +45,9 @@ function Header2() {
   return (
     <>
       <NewsScroller />
-      <div className="bg-[#000] noselect hidden md:block ">
+      <div className="noselect hidden bg-[#000] md:block ">
         <div className="ml-[20px] tracking-widest">
-          <div className="inline-block px-[20px] h-[80px] text-[#FFD1B2] items-center">
+          <div className="inline-block h-[80px] items-center px-[20px] text-[#FFD1B2]">
             <Link to="/">
               <p className="mt-[30px]  text-4xl font-thin">SIMULATION MINERS</p>
             </Link>
@@ -56,7 +56,7 @@ function Header2() {
           <NavItem title="SHOP" link="/shop" />
           <NavItem title="BLACK MARKET" link="/black-market" />
           <Link to="/profile">
-            <div className="inline-block px-[20px] h-[80px] hover:text-[#22FC37] float-right">
+            <div className="float-right inline-block h-[80px] px-[20px] hover:text-[#22FC37]">
               {currentUser && (
                 <div className="mt-[30px]">
                   <Avatar
@@ -71,7 +71,7 @@ function Header2() {
           </Link>
           <div
             onClick={handleSignOut}
-            className="inline-block px-[20px] float-right h-[80px] items-center"
+            className="float-right inline-block h-[80px] items-center px-[20px]"
           >
             <div className="mt-[30px]">
               <Button title={"LOGOUT"} color="#ffc700" />
@@ -80,16 +80,16 @@ function Header2() {
         </div>
       </div>
 
-      <div className="bg-[#000] h-[80px] tracking-widest md:hidden">
+      <div className="h-[80px] bg-[#000] tracking-widest md:hidden">
         <div className="ml-[20px]">
-          <div className="inline-block px-[20px] h-[80px] text-[#FFD1B2] items-center">
+          <div className="inline-block h-[80px] items-center px-[20px] text-[#FFD1B2]">
             <Link to="/">
               <p className="mt-[30px] text-3xl font-thin">SIMULATION MINERS</p>
             </Link>
           </div>
           <div
             onClick={handleHamOpen}
-            className="absolute top-0 right-0 px-[20px] h-[80px] text-[#FFD1B2] items-center"
+            className="absolute right-0 top-0 h-[80px] items-center px-[20px] text-[#FFD1B2]"
           >
             <RxHamburgerMenu
               className="mt-[62px]"
@@ -101,9 +101,9 @@ function Header2() {
 
       {/* ----------HAMBERGER MENUE---------- */}
       {hamburgerOpen && (
-        <div className="fixed top-0 right-0 w-full h-[120vh] bg-black z-50 p-[40px]">
+        <div className="fixed right-0 top-0 z-50 h-[120vh] w-full bg-black p-[40px]">
           <p
-            className="text-3xl absolute top-0 right-0 mt-[35px] mr-[25px]"
+            className="absolute right-0 top-0 mr-[25px] mt-[35px] text-3xl"
             onClick={handleHamClose}
           >
             X
@@ -149,7 +149,7 @@ function Header2() {
           )}
           <div
             onClick={handleSignOut}
-            className="w-full px-[20%] h-[80px] mx-auto text-center"
+            className="mx-auto h-[80px] w-full px-[20%] text-center"
           >
             <div className="mt-[30px]">
               <Button title={"LOGOUT"} color="#ffc700" />

@@ -3,13 +3,9 @@ import { useState, useEffect } from "react";
 import { supabaseClient as supabase } from "../../../config/supabase-client";
 import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
 import { useAuth } from "../../../hooks/Auth";
-import { useParams } from "react-router-dom";
 import Link from "next/link";
 
 function NewIssue({ params }) {
-  // const params = useParams();
-  // const { id, property_id } = params;
-
   const [image, setImage] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [finalURL, setFinalURL] = useState();

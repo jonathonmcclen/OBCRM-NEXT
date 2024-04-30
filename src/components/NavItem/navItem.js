@@ -1,11 +1,11 @@
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import Button from "../Button";
 
 function NavItem({ title, link }) {
   return (
     <>
       <Link to={link}>
-        <div className="inline-block px-[20px] h-[80px] hover:text-[#FFD1B2] items-center hover:underline underline-offset-8">
+        <div className="inline-block h-[80px] items-center px-[20px] underline-offset-8 hover:text-[#FFD1B2] hover:underline">
           <p className="mt-[30px] ">{title}</p>
         </div>
       </Link>

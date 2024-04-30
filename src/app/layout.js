@@ -18,7 +18,7 @@ import {
   ChevronDownIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/react/20/solid";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { useAuth } from "../hooks/Auth";
 import { supabaseClient as supabase } from "../config/supabase-client";
 import Logo from "../assets/REGENTLOGO100.jpg";
