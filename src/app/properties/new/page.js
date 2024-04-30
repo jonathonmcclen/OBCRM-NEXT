@@ -121,7 +121,7 @@ function NewProperty({ params }) {
 
         <form>
           <div className="relative mb-4">
-            <label for="name" className="text-sm leading-7 text-gray-600">
+            <label htmlFor="name" className="text-sm leading-7 text-gray-600">
               Name
             </label>
             <input
@@ -132,7 +132,7 @@ function NewProperty({ params }) {
             />
           </div>{" "}
           <div className="relative mb-4">
-            <label for="name" className="text-sm leading-7 text-gray-600">
+            <label htmlFor="name" className="text-sm leading-7 text-gray-600">
               address 1
             </label>
             <input
@@ -145,7 +145,7 @@ function NewProperty({ params }) {
             />
           </div>
           <div className="relative mb-4">
-            <label for="name" className="text-sm leading-7 text-gray-600">
+            <label htmlFor="name" className="text-sm leading-7 text-gray-600">
               address 2
             </label>
             <input
@@ -158,7 +158,7 @@ function NewProperty({ params }) {
             />
           </div>
           <div className="relative mb-4">
-            <label for="name" className="text-sm leading-7 text-gray-600">
+            <label htmlFor="name" className="text-sm leading-7 text-gray-600">
               City
             </label>
             <input
@@ -171,7 +171,7 @@ function NewProperty({ params }) {
             />
           </div>{" "}
           <div className="relative mb-4">
-            <label for="name" className="text-sm leading-7 text-gray-600">
+            <label htmlFor="name" className="text-sm leading-7 text-gray-600">
               State
             </label>
             <input
@@ -184,7 +184,7 @@ function NewProperty({ params }) {
             />
           </div>{" "}
           <div className="relative mb-4">
-            <label for="name" className="text-sm leading-7 text-gray-600">
+            <label htmlFor="name" className="text-sm leading-7 text-gray-600">
               Zip
             </label>
             <input
@@ -197,7 +197,7 @@ function NewProperty({ params }) {
             />
           </div>{" "}
           <div className="relative mb-4">
-            <label for="name" className="text-sm leading-7 text-gray-600">
+            <label htmlFor="name" className="text-sm leading-7 text-gray-600">
               notes
             </label>
             <textarea
@@ -209,7 +209,7 @@ function NewProperty({ params }) {
               className="w-full rounded border border-gray-300 bg-white px-3 py-1 text-base leading-8 text-gray-700 outline-none transition-colors duration-200 ease-in-out focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
             ></textarea>
           </div>
-          <label for="name" className="text-sm leading-7 text-gray-600">
+          <label htmlFor="name" className="text-sm leading-7 text-gray-600">
             Map
           </label>
           <div className=" mb-4 mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">

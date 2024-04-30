@@ -18,7 +18,7 @@ function NewClient() {
         <h1>New Issue</h1>
         <form>
           <div className="relative mb-4">
-            <label for="name" className="text-sm leading-7 text-gray-600">
+            <label htmlFor="name" className="text-sm leading-7 text-gray-600">
               Reporter
             </label>
             <input
@@ -29,7 +29,7 @@ function NewClient() {
             />
           </div>{" "}
           <div className="relative mb-4">
-            <label for="name" className="text-sm leading-7 text-gray-600">
+            <label htmlFor="name" className="text-sm leading-7 text-gray-600">
               Assignee
             </label>
             <input
@@ -40,7 +40,7 @@ function NewClient() {
             />
           </div>
           <div className="relative mb-4">
-            <label for="name" className="text-sm leading-7 text-gray-600">
+            <label htmlFor="name" className="text-sm leading-7 text-gray-600">
               Type
             </label>
             <input
@@ -51,7 +51,7 @@ function NewClient() {
             />
           </div>{" "}
           <div className="relative mb-4">
-            <label for="name" className="text-sm leading-7 text-gray-600">
+            <label htmlFor="name" className="text-sm leading-7 text-gray-600">
               Description
             </label>
             <textarea
