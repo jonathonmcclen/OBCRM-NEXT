@@ -95,8 +95,8 @@ export default function RootLayout2({ children }) {
         This example requires updating your template:
 
         ```
-        <html class="h-full bg-white">
-        <body class="h-full">
+        <html className="h-full bg-white">
+        <body className="h-full">
         ```
       */}
           <div>

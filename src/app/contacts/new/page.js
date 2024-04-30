@@ -309,7 +309,7 @@ function NewContact({ params }) {
         </div>
         <div className="space-y-12">
           <div className="border-b border-gray-900/10 pb-12"></div>
-          <div class="relative mb-4">
+          <div className="relative mb-4">
             <label
               htmlFor="location"
               className="block text-sm font-medium leading-6 text-gray-900"
@@ -329,7 +329,7 @@ function NewContact({ params }) {
               <option>Dynamic Property 4</option>
             </select>
           </div>
-          <div class="relative mb-4">
+          <div className="relative mb-4">
             <label
               htmlFor="location"
               className="block text-sm font-medium leading-6 text-gray-900"

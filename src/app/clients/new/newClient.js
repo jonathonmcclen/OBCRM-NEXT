@@ -17,52 +17,52 @@ function NewClient() {
       <div>
         <h1>New Issue</h1>
         <form>
-          <div class="relative mb-4">
-            <label for="name" class="leading-7 text-sm text-gray-600">
+          <div className="relative mb-4">
+            <label for="name" className="text-sm leading-7 text-gray-600">
               Reporter
             </label>
             <input
               type="text"
               id="name"
               name="name"
-              class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+              className="w-full rounded border border-gray-300 bg-white px-3 py-1 text-base leading-8 text-gray-700 outline-none transition-colors duration-200 ease-in-out focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
             />
           </div>{" "}
-          <div class="relative mb-4">
-            <label for="name" class="leading-7 text-sm text-gray-600">
+          <div className="relative mb-4">
+            <label for="name" className="text-sm leading-7 text-gray-600">
               Assignee
             </label>
             <input
               type="text"
               id="name"
               name="name"
-              class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+              className="w-full rounded border border-gray-300 bg-white px-3 py-1 text-base leading-8 text-gray-700 outline-none transition-colors duration-200 ease-in-out focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
             />
           </div>
-          <div class="relative mb-4">
-            <label for="name" class="leading-7 text-sm text-gray-600">
+          <div className="relative mb-4">
+            <label for="name" className="text-sm leading-7 text-gray-600">
               Type
             </label>
             <input
               type="text"
               id="name"
               name="name"
-              class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+              className="w-full rounded border border-gray-300 bg-white px-3 py-1 text-base leading-8 text-gray-700 outline-none transition-colors duration-200 ease-in-out focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
             />
           </div>{" "}
-          <div class="relative mb-4">
-            <label for="name" class="leading-7 text-sm text-gray-600">
+          <div className="relative mb-4">
+            <label for="name" className="text-sm leading-7 text-gray-600">
               Description
             </label>
             <textarea
               type="text"
               id="name"
               name="name"
-              class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+              className="w-full rounded border border-gray-300 bg-white px-3 py-1 text-base leading-8 text-gray-700 outline-none transition-colors duration-200 ease-in-out focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
             ></textarea>
           </div>
         </form>
-        <button class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+        <button className="rounded border-0 bg-indigo-500 px-8 py-2 text-lg text-white hover:bg-indigo-600 focus:outline-none">
           SAVE
         </button>
       </div>
