@@ -1,23 +1,15 @@
+"use client";
 import { useEffect, useState } from "react";
-import {
-  Container,
-  Form,
-  ButtonToolbar,
-  IconButton,
-  Button,
-  Input,
-} from "rsuite";
 import { supabaseClient } from "../../config/supabase-client";
 import { Session } from "@supabase/supabase-js";
-import OffRoundIcon from "@rsuite/icons/OffRound";
-import { useNavigate } from "react-router-dom";
+import { Link } from "next/link";
+import { redirect } from "next/navigation";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [session, setSession] = useState();
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     supabaseClient.auth.getSession().then(({ data: { session } }) => {
@@ -42,7 +34,7 @@ function Login() {
         password,
       });
       if (error) throw error;
-      navigate("/");
+      redirect("/login");
     } catch (err) {
       throw err;
     } finally {
@@ -60,7 +52,7 @@ function Login() {
   if (loading) return <h1>Loading</h1>;
 
   return (
-    <Container>
+    <div>
       <div className="flex min-h-full flex-1">
         <div className="flex flex-1 flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
           <div className="mx-auto w-full max-w-sm lg:w-96">
@@ -158,13 +150,13 @@ function Login() {
                   <div>
                     {" "}
                     <div onClick={Login}>
-                      <Button
+                      <button
                         title="Sign In"
                         appearance="primary"
                         onClick={Login}
                       >
                         Sign in
-                      </Button>{" "}
+                      </button>{" "}
                       <button
                         type="submit"
                         className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
@@ -200,63 +192,47 @@ function Login() {
       {/* <div className="absolute z-0 overflow-hidden h-[90vh]">
         <img src="https://nrpcmqkzpwyhpqnxkftn.supabase.co/storage/v1/object/public/mics/LoginPlanet.png" />
       </div> */}
-      <div className="z-50 center mt-[150px] mx-[50px] md:mx-[50px] lg:mx-[200px] xl:mx-[600px]">
+      <div className="center z-50 mx-[50px] mt-[150px] md:mx-[50px] lg:mx-[200px] xl:mx-[600px]">
         {!session ? (
           <>
             {/* <SifiCard title={"LOGIN"}> */}
             <h1>OBPRM</h1>
             <p>Office Business and Property Relation Management Software</p>
             <hr />
-            <Form fluid>
-              <label>Email</label>
-              <Input
-                className="w-full h-[32px] text-black"
-                onChange={(e) => setEmail(e.target.value)}
-                value={email}
-              />
-              <label>Password</label>
-              <Input
-                className="w-full h-[32px] text-black"
-                onChange={(e) => setPassword(e.target.value)}
-                value={password}
-              />
-              <br />
-              <br />
-              <br />
-              <br />
-              <br />
-              <Form.Group>
-                <ButtonToolbar>
-                  <div onClick={Login}>
-                    <Button
-                      title="Sign In"
-                      appearance="primary"
-                      onClick={Login}
-                    >
-                      Sign in
-                    </Button>
-                  </div>
-                  <Button>Forgot password?</Button>
-                </ButtonToolbar>
-              </Form.Group>
-            </Form>
-            {/* </SifiCard> */}
+            <label>Email</label>
+            <input
+              className="h-[32px] w-full text-black"
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+            />
+            <label>Password</label>
+            <input
+              className="h-[32px] w-full text-black"
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
+            />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <div onClick={Login}>
+              <button title="Sign In" appearance="primary" onClick={Login}>
+                Sign in
+              </button>
+            </div>
+            <button>Forgot password?</button>
           </>
         ) : (
           <>
             <p>Welcome back {session.user.email}</p>
-            <IconButton
-              size="sm"
-              onClick={Logout}
-              appearance="primary"
-              icon={<OffRoundIcon />}
-            >
+            <button size="sm" onClick={Logout} appearance="primary">
               Logout
-            </IconButton>
+            </button>
           </>
         )}
       </div>
-    </Container>
+    </div>
   );
 }
 

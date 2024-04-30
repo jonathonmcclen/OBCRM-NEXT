@@ -1,5 +1,7 @@
+"use client";
 import { useEffect, useState, Fragment } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import Link from "next/link";
 import { supabaseClient as supabase } from "../../../config/supabase-client";
 import {
   PaperClipIcon,
@@ -22,9 +24,9 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-function Issue() {
-  const params = useParams();
-  const { id } = params;
+function Issue({ params }) {
+  // const params = useParams();
+  // const { id } = params;
   const [loading, setLoading] = useState();
   const [issue, setIssue] = useState();
   const [created, setCreated] = useState();
@@ -37,7 +39,7 @@ function Issue() {
       let { data, error } = await supabase
         .from("work_orders")
         .select(`*, properties (*)`)
-        .eq("id", id);
+        .eq("id", params.slug);
 
       if (error) {
         console.warn(error);
@@ -58,19 +60,14 @@ function Issue() {
     }
   }, [issue]);
 
-  document.title = "My new title";
+  document.title = `${issue?.status} Issue ${issue?.id} | ${issue?.properties.name} | ${issue?.description.substring(0, 30)}`;
 
   return (
     <>
-      {/* {issue && (
-        <title>
-          {issue.status} Issue {issue.id} | {issue.properties.name} |{" "}
-          {issue.description.substring(0, 30)}
-        </title>
-      )} */}
+      {issue && <title></title>}
 
       <div className="mt-6 flex items-center justify-end gap-x-6">
-        <Link to="/issues">
+        <Link href="/issues">
           <button
             type="button"
             className="text-sm font-semibold leading-6 text-gray-900"
@@ -78,7 +75,7 @@ function Issue() {
             Back
           </button>{" "}
         </Link>
-        <Link to={"/issues/" + issue?.id + "/edit"}>
+        <Link href={"/issues/" + issue?.id + "/edit"}>
           <button
             type="submit"
             className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
@@ -115,7 +112,7 @@ function Issue() {
                     tab.current
                       ? "border-indigo-500 text-indigo-600"
                       : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700",
-                    "group inline-flex items-center border-b-2 py-4 px-1 text-sm font-medium"
+                    "group inline-flex items-center border-b-2 px-1 py-4 text-sm font-medium",
                   )}
                   aria-current={tab.current ? "page" : undefined}
                 >
@@ -124,7 +121,7 @@ function Issue() {
                       tab.current
                         ? "text-indigo-500"
                         : "text-gray-400 group-hover:text-gray-500",
-                      "-ml-0.5 mr-2 h-5 w-5"
+                      "-ml-0.5 mr-2 h-5 w-5",
                     )}
                     aria-hidden="true"
                   />
@@ -152,10 +149,10 @@ function Issue() {
                   Images
                 </dt>
                 <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                  <div className="w-full h-[250px] text-center">
+                  <div className="h-[250px] w-full text-center">
                     {issue.images && (
                       <img
-                        className="h-full mx-auto"
+                        className="mx-auto h-full"
                         src={
                           "https://bcnnvbpbwelebmdyvesf.supabase.co/storage/v1/object/public/issues/" +
                           issue.images[0]

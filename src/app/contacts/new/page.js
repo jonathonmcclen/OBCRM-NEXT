@@ -1,9 +1,9 @@
+"use client";
 import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
 import { React, useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import { supabaseClient as supabase } from "../../../config/supabase-client";
 
-function NewContact() {
+function NewContact({ params }) {
   const [firstName, setFirstName] = useState();
   const [lastName, setLastName] = useState();
   const [salutation, setSalutation] = useState();
@@ -16,16 +16,13 @@ function NewContact() {
   const [company, setCompany] = useState();
   const [regent, setRegent] = useState();
 
-  const params = useParams();
-  const { id } = params;
-
   useEffect(() => {
-    if (id) {
+    if (params.slug) {
       async function getProperty() {
         let { data, error } = await supabase
           .from("contacts")
           .select(`*`)
-          .eq("id", id)
+          .eq("id", params.slug)
           .single();
 
         if (error) {
@@ -49,8 +46,8 @@ function NewContact() {
     }
   }, []);
 
-  const handleCreateCointact = async function () {
-    if (id) {
+  const handleCreateContact = async function () {
+    if (params.slug) {
       const { data, error } = await supabase
         .from("contacts")
         .update([
@@ -68,38 +65,36 @@ function NewContact() {
             regent: regent,
           },
         ])
-        .eq("id", id)
+        .eq("id", params.slug)
         .select();
       if (error) {
         console.warn(error);
       } else {
-        if (property_id) {
-          window.location.href = "/properties/" + property_id;
-        } else {
-          window.location.href = "/issues";
-        }
+        window.location.href = "/contacts";
       }
     } else {
       const { data, error } = await supabase
-        .from("work_orders")
+        .from("contacts")
         .insert([
           {
-            reporter: currentUser.simp_id,
+            first_name: firstName,
+            last_name: lastName,
+            salutation: salutation,
+            gender: gender,
+            number: number,
+            email: email,
+            notes: notes,
+            tags: tags,
             type: type,
-            description: description,
-            property: property,
-            status: status,
+            company: company,
+            regent: regent,
           },
         ])
         .select();
       if (error) {
         console.warn(error);
       } else {
-        if (property_id) {
-          window.location.href = "/properties/" + property_id;
-        } else {
-          window.location.href = "/issues";
-        }
+        window.location.href = "/contacts";
       }
     }
   };

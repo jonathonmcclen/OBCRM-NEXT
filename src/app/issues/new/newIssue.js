@@ -69,9 +69,9 @@ function NewIssue({ params }) {
 
   // get current issue information
   useEffect(() => {
-    // if (property_id) {
-    //   setProperty(parseInt(property_id));
-    // }
+    if (params.property) {
+      setProperty(parseInt(params.property));
+    }
 
     if (params.slug) {
       async function getIssue() {
@@ -115,7 +115,7 @@ function NewIssue({ params }) {
 
   // create issue
   const handleCreateIssue = async function () {
-    if (id) {
+    if (params.slug) {
       const { data, error } = await supabase
         .from("work_orders")
         .update([
@@ -128,13 +128,13 @@ function NewIssue({ params }) {
             images: [finalURL],
           },
         ])
-        .eq("id", id)
+        .eq("id", params.slug)
         .select();
       if (error) {
         console.warn(error);
       } else {
-        if (property_id) {
-          window.location.href = "/properties/" + property_id;
+        if (params.property) {
+          window.location.href = "/properties/" + params.property;
         } else {
           window.location.href = "/issues";
         }
@@ -156,8 +156,8 @@ function NewIssue({ params }) {
       if (error) {
         console.warn(error);
       } else {
-        if (property_id) {
-          window.location.href = "/properties/" + property_id;
+        if (params.property) {
+          window.location.href = "/properties/" + params.property;
         } else {
           window.location.href = "/issues";
         }

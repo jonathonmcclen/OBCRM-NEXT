@@ -46,7 +46,7 @@ function NewProperty({ params }) {
   }, []);
 
   const handleCreateProperty = async function () {
-    if (id) {
+    if (params.slug) {
       const { data, error } = await supabase
         .from("properties")
         .update({
@@ -58,7 +58,7 @@ function NewProperty({ params }) {
           zip: zip,
           notes: notes,
         })
-        .eq("id", id)
+        .eq("id", params.slug)
         .select();
       if (error) {
         console.warn(error);
