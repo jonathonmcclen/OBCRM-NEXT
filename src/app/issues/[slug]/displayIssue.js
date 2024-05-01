@@ -63,8 +63,9 @@ function DisplayIssue({ id }) {
 
   return (
     <>
-      <title>{`${issue?.status} Issue ${issue?.id} | ${issue?.properties?.name} | ${issue?.description?.substring(0, 30)}`}</title>
-
+      {issue && (
+        <title>{`${issue?.status} Issue ${issue?.id} | ${issue?.properties?.name} | ${issue?.description?.substring(0, 30)}`}</title>
+      )}
       <div className="mt-6 flex items-center justify-end gap-x-6">
         <Link href="/issues">
           <button
