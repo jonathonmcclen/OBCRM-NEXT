@@ -10,15 +10,21 @@ function NewContact({ params }) {
   const [gender, setGender] = useState();
   const [number, setNumber] = useState();
   const [email, setEmail] = useState();
-  const [notes, setNotes] = useState();
+  const [notes, setNotes] = useState(" ");
   const [tags, setTags] = useState();
   const [type, setType] = useState();
   const [company, setCompany] = useState();
   const [regent, setRegent] = useState();
 
+  const [addressLineOne, setAddressLineOne] = useState("");
+  const [addressLineTwo, setAddressLineTwo] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [zip, setZip] = useState("");
+
   useEffect(() => {
     if (params.slug) {
-      async function getProperty() {
+      async function getContact() {
         let { data, error } = await supabase
           .from("contacts")
           .select(`*`)
@@ -39,10 +45,15 @@ function NewContact({ params }) {
           setType(data.type);
           setCompany(data.company);
           setRegent(data.regent);
+          setAddressLineOne(data.address_1);
+          setAddressLineTwo(data.address_2);
+          setCity(data.city);
+          setState(data.state);
+          setZip(data.zip);
         }
       }
 
-      getProperty();
+      getContact();
     }
   }, []);
 
@@ -63,10 +74,16 @@ function NewContact({ params }) {
             type: type,
             company: company,
             regent: regent,
+            address_1: addressLineOne,
+            address_2: addressLineTwo,
+            city: city,
+            state: state,
+            zip: zip,
           },
         ])
         .eq("id", params.slug)
         .select();
+
       if (error) {
         console.warn(error);
       } else {
@@ -88,6 +105,11 @@ function NewContact({ params }) {
             type: type,
             company: company,
             regent: regent,
+            address_1: addressLineOne,
+            address_2: addressLineTwo,
+            city: city,
+            state: state,
+            zip: zip,
           },
         ])
         .select();
@@ -98,6 +120,7 @@ function NewContact({ params }) {
       }
     }
   };
+
   return (
     <>
       <form>
@@ -178,7 +201,7 @@ function NewContact({ params }) {
                   htmlFor="email"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  Email address
+                  Email
                 </label>
                 <div className="mt-2">
                   <input
@@ -203,12 +226,26 @@ function NewContact({ params }) {
                   <input
                     onChange={(e) => setNumber(e.target.value)}
                     value={number}
-                    id="email"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
+                    id="phone"
+                    name="number"
+                    type="text"
+                    autoComplete="phone"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
+                </div>
+              </div>
+              <div className="sm:col-span-8">
+                <div className="relative mb-4">
+                  <label className="text-sm leading-7 text-gray-600">
+                    Description
+                  </label>
+                  <textarea
+                    value={notes}
+                    onChange={(e) => setNotes(e.target.value)}
+                    id="name"
+                    name="name"
+                    className="w-full rounded border border-gray-300 bg-white px-3 py-1 text-base leading-8 text-gray-700 outline-none transition-colors duration-200 ease-in-out focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+                  ></textarea>
                 </div>
               </div>
 
@@ -238,10 +275,31 @@ function NewContact({ params }) {
                   htmlFor="street-address"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  Street address
+                  Address Line 1
                 </label>
                 <div className="mt-2">
                   <input
+                    onChange={(e) => setAddressLineOne(e.target.value)}
+                    value={addressLineOne}
+                    type="text"
+                    name="street-address"
+                    id="street-address"
+                    autoComplete="street-address"
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  />
+                </div>
+              </div>
+              <div className="col-span-full">
+                <label
+                  htmlFor="street-address"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Address Line 2
+                </label>
+                <div className="mt-2">
+                  <input
+                    onChange={(e) => setAddressLineTwo(e.target.value)}
+                    value={addressLineTwo}
                     type="text"
                     name="street-address"
                     id="street-address"
@@ -260,6 +318,8 @@ function NewContact({ params }) {
                 </label>
                 <div className="mt-2">
                   <input
+                    onChange={(e) => setCity(e.target.value)}
+                    value={city}
                     type="text"
                     name="city"
                     id="city"
@@ -278,6 +338,8 @@ function NewContact({ params }) {
                 </label>
                 <div className="mt-2">
                   <input
+                    onChange={(e) => setState(e.target.value)}
+                    value={state}
                     type="text"
                     name="region"
                     id="region"
@@ -296,6 +358,8 @@ function NewContact({ params }) {
                 </label>
                 <div className="mt-2">
                   <input
+                    onChange={(e) => setZip(e.target.value)}
+                    value={zip}
                     type="text"
                     name="postal-code"
                     id="postal-code"
@@ -349,22 +413,21 @@ function NewContact({ params }) {
             </select>
           </div>
         </div>
-
-        <div className="mt-6 flex items-center justify-end gap-x-6">
-          <button
-            type="button"
-            className="text-sm font-semibold leading-6 text-gray-900"
-          >
-            Cancel
-          </button>
-          <button
-            type="submit"
-            className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            Save
-          </button>
-        </div>
-      </form>
+      </form>{" "}
+      <div className="mt-6 flex items-center justify-end gap-x-6">
+        <button
+          type="button"
+          className="text-sm font-semibold leading-6 text-gray-900"
+        >
+          Cancel
+        </button>
+        <button
+          onClick={handleCreateContact}
+          className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+        >
+          Save
+        </button>
+      </div>
     </>
   );
 }

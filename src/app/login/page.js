@@ -1,9 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 import { supabaseClient } from "../../config/supabase-client";
-import { Session } from "@supabase/supabase-js";
-import { Link } from "next/link";
 import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -21,39 +20,54 @@ function Login() {
     });
   }, []);
 
-  useEffect(() => {
-    console.log(email);
-    console.log(password);
-  }, [email, password]);
-
-  const Login = async () => {
-    setLoading(true);
-    try {
-      const { error } = await supabaseClient.auth.signInWithPassword({
-        email,
-        password,
-      });
-      if (error) throw error;
-      redirect("/login");
-    } catch (err) {
-      throw err;
-    } finally {
-      setEmail("");
-      setPassword("");
-      setLoading(false);
-    }
-  };
-
   const Logout = async () => {
     const { error } = await supabaseClient.auth.signOut();
     if (error) throw error;
   };
 
+  useEffect(() => {
+    console.log(email);
+    console.log(password);
+  }, [email, password]);
+
+  async function Login(e) {
+    e.preventDefault;
+    setLoading(true);
+    console.log("hit");
+
+    const { error } = await supabaseClient.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) {
+      console.warn(error);
+    } else if (session) {
+      setLoading(false);
+      window.location.href = "/properties";
+    }
+  }
+
+  // const Login = async () => {
+  //   setLoading(true);
+  //   console.log("hit");
+  //   try {
+  //     const { error } = await supabaseClient.auth.signInWithPassword({
+  //       email,
+  //       password,
+  //     });
+  //   } catch (err) {
+  //     throw err;
+  //   }
+  //   setLoading(false);
+  //   router.push("/contacts");
+  // };
+
   if (loading) return <h1>Loading</h1>;
 
   return (
     <div>
-      <div className="flex min-h-full flex-1">
+      <div className="flex min-h-[100vh] flex-1">
         <div className="flex flex-1 flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
           <div className="mx-auto w-full max-w-sm lg:w-96">
             <div>
@@ -78,7 +92,7 @@ function Login() {
 
             <div className="mt-10">
               <div>
-                <form action="#" method="POST" className="space-y-6">
+                <div className="space-y-6">
                   <div>
                     <label
                       htmlFor="email"
@@ -113,7 +127,7 @@ function Login() {
                         value={password}
                         id="password"
                         name="password"
-                        type="password"
+                        type="text"
                         autoComplete="current-password"
                         required
                         className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -148,24 +162,22 @@ function Login() {
                   </div>
 
                   <div>
-                    {" "}
-                    <div onClick={Login}>
+                    <div>
                       <button
-                        title="Sign In"
-                        appearance="primary"
-                        onClick={Login}
-                      >
-                        Sign in
-                      </button>{" "}
-                      <button
-                        type="submit"
+                        onClick={(e) => Login(e)}
                         className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                       >
-                        Sign in
+                        Sign in!
                       </button>
+                      <div
+                        onClick={Logout}
+                        className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                      >
+                        logout
+                      </div>
                     </div>
                   </div>
-                </form>
+                </div>
               </div>
 
               <div className="mt-10">
@@ -192,46 +204,6 @@ function Login() {
       {/* <div className="absolute z-0 overflow-hidden h-[90vh]">
         <img src="https://nrpcmqkzpwyhpqnxkftn.supabase.co/storage/v1/object/public/mics/LoginPlanet.png" />
       </div> */}
-      <div className="center z-50 mx-[50px] mt-[150px] md:mx-[50px] lg:mx-[200px] xl:mx-[600px]">
-        {!session ? (
-          <>
-            {/* <SifiCard title={"LOGIN"}> */}
-            <h1>OBPRM</h1>
-            <p>Office Business and Property Relation Management Software</p>
-            <hr />
-            <label>Email</label>
-            <input
-              className="h-[32px] w-full text-black"
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
-            />
-            <label>Password</label>
-            <input
-              className="h-[32px] w-full text-black"
-              onChange={(e) => setPassword(e.target.value)}
-              value={password}
-            />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <div onClick={Login}>
-              <button title="Sign In" appearance="primary" onClick={Login}>
-                Sign in
-              </button>
-            </div>
-            <button>Forgot password?</button>
-          </>
-        ) : (
-          <>
-            <p>Welcome back {session.user.email}</p>
-            <button size="sm" onClick={Logout} appearance="primary">
-              Logout
-            </button>
-          </>
-        )}
-      </div>
     </div>
   );
 }

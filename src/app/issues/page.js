@@ -30,6 +30,50 @@ function Issues() {
     getIssues();
   }, []);
 
+  async function getOpenIssues() {
+    setLoading(true);
+
+    let { data, error } = await supabase
+      .from("work_orders")
+      .select(
+        `id, reporter, type, description, assignee, status, properties (
+        *
+      ), profiles!public_work_orders_reporter_fkey (
+        full_name,id
+      )`,
+      )
+      .eq("status", "Open");
+
+    if (error) {
+      console.warn(error);
+    } else if (data) {
+      setIssues(data);
+    }
+    setLoading(false);
+  }
+
+  async function getClosedIssues() {
+    setLoading(true);
+
+    let { data, error } = await supabase
+      .from("work_orders")
+      .select(
+        `id, reporter, type, description, assignee, status, properties (
+        *
+      ), profiles!public_work_orders_reporter_fkey (
+        full_name,id
+      )`,
+      )
+      .eq("status", "Closed");
+
+    if (error) {
+      console.warn(error);
+    } else if (data) {
+      setIssues(data);
+    }
+    setLoading(false);
+  }
+
   useEffect(() => {
     console.log(issues);
   }, [issues]);
@@ -67,6 +111,22 @@ function Issues() {
               <div>
                 <div className="mt-8 flow-root">
                   <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                    <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                      <button
+                        onClick={getOpenIssues}
+                        type="button"
+                        className="block inline-block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                      >
+                        Open
+                      </button>
+                      <button
+                        onClick={getClosedIssues}
+                        type="button"
+                        className="ml-2 block inline-block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                      >
+                        Closed
+                      </button>
+                    </div>
                     <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                       <table className="min-w-full divide-y divide-gray-300">
                         <thead>

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { supabaseClient as supabase } from "@/config/supabase-client";
 import { TrashIcon, PencilIcon, EyeIcon } from "@heroicons/react/24/outline";
+import ProtectedRoute from "@/components/ProtectedRoute";
 
 function Contacts() {
   const [contacts, setContacts] = useState([]);

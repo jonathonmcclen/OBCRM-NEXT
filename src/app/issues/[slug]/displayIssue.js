@@ -31,6 +31,8 @@ function DisplayIssue({ id }) {
   const [created, setCreated] = useState();
   const [open, setOpen] = useState(false);
 
+  const [currentTab, setCurrentTab] = useState("General");
+
   useEffect(() => {
     async function getIssue() {
       setLoading(true);
@@ -97,7 +99,9 @@ function DisplayIssue({ id }) {
             defaultValue={tabs.find((tab) => tab.current).name}
           >
             {tabs.map((tab) => (
-              <option key={tab.name}>{tab.name}</option>
+              <option key={tab.name} onClick={(e) => setCurrentTab(tab.name)}>
+                {tab.name}
+              </option>
             ))}
           </select>
         </div>
@@ -105,11 +109,11 @@ function DisplayIssue({ id }) {
           <div className="border-b border-gray-200">
             <nav className="-mb-px flex space-x-8" aria-label="Tabs">
               {tabs.map((tab) => (
-                <a
+                <span
+                  onClick={(e) => setCurrentTab(tab.name)}
                   key={tab.name}
-                  href={tab.href}
                   className={classNames(
-                    tab.current
+                    tab.name == currentTab
                       ? "border-indigo-500 text-indigo-600"
                       : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700",
                     "group inline-flex items-center border-b-2 px-1 py-4 text-sm font-medium",
@@ -118,7 +122,7 @@ function DisplayIssue({ id }) {
                 >
                   <tab.icon
                     className={classNames(
-                      tab.current
+                      tab.name == currentTab
                         ? "text-indigo-500"
                         : "text-gray-400 group-hover:text-gray-500",
                       "-ml-0.5 mr-2 h-5 w-5",
@@ -126,88 +130,100 @@ function DisplayIssue({ id }) {
                     aria-hidden="true"
                   />
                   <span>{tab.name}</span>
-                </a>
+                </span>
               ))}
             </nav>
           </div>
         </div>
       </div>
-      {issue && (
-        <div className="mt-[50px]">
-          <div className="px-4 sm:px-0">
-            <h3 className="text-4xl font-semibold leading-7 text-gray-900">
-              {/* {issue.description}s */}
-            </h3>
-            <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
-              {created}
-            </p>
-          </div>
-          <div className="mt-6 border-t border-gray-100">
-            <dl className="divide-y divide-gray-100">
-              <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                <dt className="text-sm font-medium leading-6 text-gray-900">
-                  Images
-                </dt>
-                <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                  <div className="h-[250px] w-full text-center">
-                    {issue.images && (
-                      <img
-                        className="mx-auto h-full"
-                        src={
-                          "https://bcnnvbpbwelebmdyvesf.supabase.co/storage/v1/object/public/issues/" +
-                          issue.images[0]
-                        }
-                      />
-                    )}
+
+      {currentTab == "General" && (
+        <>
+          {issue && (
+            <div className="mt-[50px]">
+              <div className="px-4 sm:px-0">
+                <h3 className="text-4xl font-semibold leading-7 text-gray-900">
+                  {issue && (
+                    <>
+                      {issue?.status} Issue {issue?.id} |{" "}
+                      {issue?.properties?.name}
+                    </>
+                  )}
+                </h3>
+                <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
+                  {created}
+                </p>
+              </div>
+              <div className="mt-6 border-t border-gray-100">
+                <dl className="divide-y divide-gray-100">
+                  <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                    <dt className="text-sm font-medium leading-6 text-gray-900">
+                      Images
+                    </dt>
+                    <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                      <div className="h-[250px] w-full text-center">
+                        {issue.images && (
+                          <img
+                            className="mx-auto h-full"
+                            src={
+                              "https://bcnnvbpbwelebmdyvesf.supabase.co/storage/v1/object/public/issues/" +
+                              issue.images[0]
+                            }
+                          />
+                        )}
+                      </div>
+                    </dd>
                   </div>
-                </dd>
+                  <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                    <dt className="text-sm font-medium leading-6 text-gray-900">
+                      Status
+                    </dt>
+                    <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                      {issue.status}
+                    </dd>
+                  </div>
+                  <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                    <dt className="text-sm font-medium leading-6 text-gray-900">
+                      type
+                    </dt>
+                    <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                      {issue.type}
+                    </dd>
+                  </div>
+                  <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                    <dt className="text-sm font-medium leading-6 text-gray-900">
+                      Description
+                    </dt>
+                    <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                      {issue.description}
+                    </dd>
+                  </div>
+                  <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                    <dt className="text-sm font-medium leading-6 text-gray-900">
+                      Property
+                    </dt>
+                    <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                      {issue.properties.name}
+                    </dd>
+                  </div>
+                  <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                    <dt className="text-sm font-medium leading-6 text-gray-900">
+                      Reporter
+                    </dt>
+                    <dd className="mt-2 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                      <p>{issue.reporter}</p>
+                    </dd>
+                  </div>
+                </dl>
               </div>
-              <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                <dt className="text-sm font-medium leading-6 text-gray-900">
-                  Status
-                </dt>
-                <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                  {issue.status}
-                </dd>
-              </div>
-              <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                <dt className="text-sm font-medium leading-6 text-gray-900">
-                  type
-                </dt>
-                <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                  {issue.type}
-                </dd>
-              </div>
-              <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                <dt className="text-sm font-medium leading-6 text-gray-900">
-                  Description
-                </dt>
-                <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                  {issue.description}
-                </dd>
-              </div>
-              <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                <dt className="text-sm font-medium leading-6 text-gray-900">
-                  Property
-                </dt>
-                <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                  {issue.properties.name}
-                </dd>
-              </div>
-              <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                <dt className="text-sm font-medium leading-6 text-gray-900">
-                  Reporter
-                </dt>
-                <dd className="mt-2 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                  <p>{issue.reporter}</p>
-                </dd>
-              </div>
-              {/* <FollowUps id={id} /> */}
-            </dl>
-          </div>
-        </div>
+            </div>
+          )}
+        </>
       )}
-      <Transition.Root show={open} as={Fragment}>
+
+      {currentTab == "Followups" && <FollowUps id={id} />}
+
+      {/* <Transition.Root show={open} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={setOpen}>
           <Transition.Child
             as={Fragment}
@@ -269,7 +285,7 @@ function DisplayIssue({ id }) {
             </div>
           </div>
         </Dialog>
-      </Transition.Root>
+      </Transition.Root> */}
     </>
   );
 }

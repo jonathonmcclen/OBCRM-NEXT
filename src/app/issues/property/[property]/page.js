@@ -1,2 +1,2 @@
-import NewIssue from "../../new";
+import NewIssue from "../../new/page";
 export default NewIssue;

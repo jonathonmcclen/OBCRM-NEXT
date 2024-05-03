@@ -60,6 +60,7 @@ function NewIssue({ params }) {
       };
 
       getProfileInfo();
+    } else {
     }
   }, []);
 
@@ -85,8 +86,11 @@ function NewIssue({ params }) {
           setDescription(data.description);
           setProperty(data.properties.id);
           setStatus(data.status);
-          setFinalURL(data.images);
-          // setReporter(data.reporter);
+          setFinalURL(data.images[0]);
+          let url =
+            "https://bcnnvbpbwelebmdyvesf.supabase.co/storage/v1/object/public/issues/" +
+            data.images[0];
+          setImage(url);
         }
       }
 
@@ -190,7 +194,9 @@ function NewIssue({ params }) {
                     aria-hidden="true"
                   />
                 )}
-                {image && <img src={image} alt="Preview" />}
+                {image && (
+                  <img className="h-[500px]" src={image} alt="Preview" />
+                )}
                 <div className="mt-4 flex text-sm leading-6 text-gray-600">
                   <label
                     htmlFor="file-upload"
@@ -316,7 +322,7 @@ function NewIssue({ params }) {
           </div>{" "}
         </form>
         <div className="mt-6 flex items-center justify-end gap-x-6">
-          <Link href="/properties">
+          <Link href="/issues">
             <button
               type="button"
               className="text-sm font-semibold leading-6 text-gray-900"

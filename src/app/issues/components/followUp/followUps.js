@@ -45,7 +45,7 @@ function FollowUps({ id }) {
             </p>
           </div>
           <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-            <Link to="/issues/new">
+            <Link href="/issues/new">
               <button
                 type="button"
                 className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
@@ -108,7 +108,7 @@ function FollowUps({ id }) {
                               <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                 <Link
                                   className="text-indigo-600 hover:text-indigo-900"
-                                  to={"/properties/" + prop.properties.id}
+                                  href={"/properties/" + prop.properties.id}
                                 >
                                   {prop.properties.name}
                                 </Link>
@@ -129,13 +129,13 @@ function FollowUps({ id }) {
                               <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-3">
                                 <Link
                                   className="text-indigo-600 hover:text-indigo-900"
-                                  to={"/issues/" + prop.id + "/edit"}
+                                  href={"/issues/" + prop.id + "/edit"}
                                 >
                                   <PencilIcon className="mr-2 inline-block h-[18px]" />
                                 </Link>
                                 <Link
                                   className="text-indigo-600 hover:text-indigo-900"
-                                  to={"/issues/" + prop.id}
+                                  href={"/issues/" + prop.id}
                                 >
                                   <EyeIcon className="mr-2 inline-block h-[20px]" />
                                 </Link>
