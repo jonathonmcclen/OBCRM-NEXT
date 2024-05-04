@@ -2,7 +2,12 @@
 import { supabaseClient as supabase } from "@/config/supabase-client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { TrashIcon, PencilIcon, EyeIcon } from "@heroicons/react/24/outline";
+import {
+  TrashIcon,
+  PencilIcon,
+  EyeIcon,
+  ArrowRightIcon,
+} from "@heroicons/react/24/outline";
 
 function Properties() {
   const [properties, setProperties] = useState([]);
@@ -13,8 +18,8 @@ function Properties() {
       setLoading(true);
 
       let { data, error } = await supabase
-        .from("properties")
-        .select(`id, name, notes, address_1, city, state, zip`);
+        .from("walkthroughs")
+        .select(`* , properties (*)`);
 
       if (error) {
         console.warn(error);
@@ -34,22 +39,22 @@ function Properties() {
         <div className="sm:flex sm:items-center">
           <div className="sm:flex-auto">
             <h1 className="text-4xl font-semibold leading-6 text-gray-900">
-              Properties
+              Walkthroughs
             </h1>
             <p className="mt-2 text-sm text-gray-700">
-              A list of all the properties in your account including their name,
-              address, and notes.
+              A List of reported walkthroughs of managed properties
             </p>
           </div>
           <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-            <Link href="/properties/new">
+            <a target="blank_" href="/walkthroughs/new">
               <button
                 type="button"
                 className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                + Add Property
+                Start Walkthrough{" "}
+                <ArrowRightIcon className="ml-2 inline-block h-[20px]" />
               </button>
-            </Link>
+            </a>
           </div>
         </div>
         <div className="">
@@ -74,19 +79,19 @@ function Properties() {
                               scope="col"
                               className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                             >
-                              Name
+                              Property
                             </th>
                             <th
                               scope="col"
                               className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                             >
-                              Notes
+                              Manager
                             </th>
                             <th
                               scope="col"
                               className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                             >
-                              Address
+                              Score
                             </th>
                             <th
                               scope="col"
@@ -141,29 +146,6 @@ function Properties() {
                   </div>
                 </div>
               </div>
-              {/* <table className="w-full text-left">
-                <tr>
-                  <th>ID</th>
-                  <th>Name</th>
-                  <th>Notes</th>
-                  <th>Address</th>
-                  <th>Actions</th>
-                </tr>
-                {properties?.map((prop, i) => (
-                  <tr>
-                    <td>{prop.id}</td>
-                    <td>{prop.name}</td>
-                    <td>{prop.notes}</td>
-                    <td>
-                      {prop.address_1}, {prop.city} {prop.state}, {prop.zip}
-                    </td>
-                    <td>
-                      Edit | <Link href={"/properties/" + prop.id}>View</Link> |
-                      Add Issue
-                    </td>
-                  </tr>
-                ))}
-              </table> */}
             </>
           )}
         </div>

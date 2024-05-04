@@ -13,6 +13,7 @@ import {
   XMarkIcon,
   HomeModernIcon,
   ClipboardDocumentListIcon,
+  BoltIcon,
 } from "@heroicons/react/24/outline";
 import {
   ChevronDownIcon,
@@ -32,6 +33,12 @@ const navigation = [
     name: "Properties",
     href: "/properties",
     icon: HomeModernIcon,
+    current: false,
+  },
+  {
+    name: "Walkthroughs",
+    href: "/walkthroughs",
+    icon: BoltIcon,
     current: false,
   },
   {

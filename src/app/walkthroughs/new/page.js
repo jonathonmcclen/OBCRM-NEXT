@@ -4,90 +4,118 @@ import { supabaseClient as supabase } from "../../../config/supabase-client";
 import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 
-function NewProperty({ params }) {
-  const [name, setName] = useState("");
-  const [address_1, setAddress_1] = useState("");
-  const [address_2, setAddress_2] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
-  const [zip, setZip] = useState("");
-  const [notes, setNotes] = useState("");
+const CHECKBOX = "CheckBox";
+const SCALE = "Scale";
+const TITLE = "Title";
+const TEXT = "Text";
+const TEXT_AREA = "TextArea";
 
-  useEffect(() => {
-    if (params.slug) {
-      async function getProperty() {
-        let { data, error } = await supabase
-          .from("properties")
-          .select(`*`)
-          .eq("id", params.slug)
-          .single();
+const json = [
+  ["Kitchen sink", "Text", "ther is one kitchen on floor 1"],
+  ["Floor 1", "Title"],
+  ["Carpets", "CheckBox", "description carpets"],
+  ["Laminate", "CheckBox", "description Laminate"],
+  ["kitchen 1 1", "Title"],
+  ["Sink", "CheckBox", "description carpets"],
+  ["Fridge", "CheckBox", "description Laminate"],
+  ["Foyer", "Scale", "description Laminate"],
+];
 
-        if (error) {
-          console.warn(error);
-        } else if (data) {
-          console.log(data);
-          setName(data.name);
-          setAddress_1(data.address_1);
-          setAddress_2(data.address_2);
-          setCity(data.city);
-          setState(data.state);
-          setZip(data.zip);
-          setNotes(data.notes);
-        }
-      }
+function getInput(input) {
+  switch (input[1]) {
+    case CHECKBOX:
+      return (
+        <>
+          <div className="relative flex items-start divide-y divide-gray-200 pb-4 pt-3.5">
+            <div className="min-w-0 flex-1 text-sm leading-6">
+              <label htmlFor="comments" className="font-medium text-gray-900">
+                {input[0]}
+              </label>
+              <p id="comments-description" className="text-gray-500">
+                {input[2]}
+              </p>
+            </div>
+            <div className="ml-3 flex h-6 items-center">
+              <input
+                id="comments"
+                aria-describedby="comments-description"
+                name="comments"
+                type="checkbox"
+                className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+              />
+            </div>
+          </div>
+        </>
+      );
+    case SCALE:
+      return (
+        <>
+          <div className="relative mb-4">
+            <label
+              htmlFor="location"
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
+              {input[0]}
+            </label>
+            <select
+              id={input[0]}
+              name={input[0]}
+              className="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              defaultValue=" "
+            >
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
+              <option>7</option>
+              <option>8</option>
+              <option>9</option>
+              <option>10</option>
+            </select>
+          </div>
+        </>
+      );
+    case TITLE:
+      return (
+        <>
+          <h2 className="text-2xl">{input[0]}</h2>
+          <hr />
+        </>
+      );
+    case TEXT:
+      return (
+        <>
+          <div className="relative mb-4">
+            <label htmlFor="name" className="text-sm leading-7 text-gray-600">
+              {input[0]}
+            </label>
+            <input
+              type="text"
+              key={input[0]}
+              id={input[0]}
+              name={input[0]}
+              className="w-full rounded border border-gray-300 bg-white px-3 py-1 text-base leading-8 text-gray-700 outline-none transition-colors duration-200 ease-in-out focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+            />
+          </div>
+        </>
+      );
+    case TEXT_AREA:
+      return "bar";
+    default:
+      return "foo";
+  }
+}
 
-      getProperty();
-    }
-  }, []);
-
-  const handleCreateProperty = async function () {
-    if (params.slug) {
-      const { data, error } = await supabase
-        .from("properties")
-        .update({
-          name: name,
-          address_1: address_1,
-          address_2: address_2,
-          city: city,
-          state: state,
-          zip: zip,
-          notes: notes,
-        })
-        .eq("id", params.slug)
-        .select();
-      if (error) {
-        console.warn(error);
-      } else {
-        window.location.href = "/properties";
-      }
-    } else {
-      const { data, error } = await supabase
-        .from("properties")
-        .insert({
-          name: name,
-          address_1: address_1,
-          address_2: address_2,
-          city: city,
-          state: state,
-          zip: zip,
-          notes: notes,
-        })
-        .select();
-      if (error) {
-        console.warn(error);
-      } else {
-        window.location.href = "/properties";
-      }
-    }
-  };
-
+function NewWalkthrough({ params }) {
   return (
     <>
       <div>
         <div className="mb-4 sm:flex sm:items-center">
           <div className="sm:flex-auto">
             <h1 className="text-4xl font-semibold leading-6 text-gray-900">
-              {name ? name : "New Property"}
+              Walkthrough
             </h1>
             <p className="mt-2 text-sm text-gray-700">
               A list of all the properties in your account including their name,
@@ -104,11 +132,7 @@ function NewProperty({ params }) {
                   Cancel
                 </button>{" "}
               </Link>
-              <button
-                onClick={handleCreateProperty}
-                type="submit"
-                className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
+              <button className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                 Save
               </button>
             </div>
@@ -117,121 +141,9 @@ function NewProperty({ params }) {
 
         <form>
           <div className="relative mb-4">
-            <label htmlFor="name" className="text-sm leading-7 text-gray-600">
-              Name
-            </label>
-            <input
-              onChange={(e) => setName(e.target.value)}
-              value={name}
-              type="text"
-              className="w-full rounded border border-gray-300 bg-white px-3 py-1 text-base leading-8 text-gray-700 outline-none transition-colors duration-200 ease-in-out focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
-            />
-          </div>{" "}
-          <div className="relative mb-4">
-            <label htmlFor="name" className="text-sm leading-7 text-gray-600">
-              address 1
-            </label>
-            <input
-              onChange={(e) => setAddress_1(e.target.value)}
-              value={address_1}
-              type="text"
-              id="name"
-              name="name"
-              className="w-full rounded border border-gray-300 bg-white px-3 py-1 text-base leading-8 text-gray-700 outline-none transition-colors duration-200 ease-in-out focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
-            />
-          </div>
-          <div className="relative mb-4">
-            <label htmlFor="name" className="text-sm leading-7 text-gray-600">
-              address 2
-            </label>
-            <input
-              onChange={(e) => setAddress_2(e.target.value)}
-              value={address_2}
-              type="text"
-              id="name"
-              name="name"
-              className="w-full rounded border border-gray-300 bg-white px-3 py-1 text-base leading-8 text-gray-700 outline-none transition-colors duration-200 ease-in-out focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
-            />
-          </div>
-          <div className="relative mb-4">
-            <label htmlFor="name" className="text-sm leading-7 text-gray-600">
-              City
-            </label>
-            <input
-              onChange={(e) => setCity(e.target.value)}
-              value={city}
-              type="text"
-              id="name"
-              name="name"
-              className="w-full rounded border border-gray-300 bg-white px-3 py-1 text-base leading-8 text-gray-700 outline-none transition-colors duration-200 ease-in-out focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
-            />
-          </div>{" "}
-          <div className="relative mb-4">
-            <label htmlFor="name" className="text-sm leading-7 text-gray-600">
-              State
-            </label>
-            <input
-              onChange={(e) => setState(e.target.value)}
-              value={state}
-              type="text"
-              id="name"
-              name="name"
-              className="w-full rounded border border-gray-300 bg-white px-3 py-1 text-base leading-8 text-gray-700 outline-none transition-colors duration-200 ease-in-out focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
-            />
-          </div>{" "}
-          <div className="relative mb-4">
-            <label htmlFor="name" className="text-sm leading-7 text-gray-600">
-              Zip
-            </label>
-            <input
-              onChange={(e) => setZip(e.target.value)}
-              value={zip}
-              type="text"
-              id="name"
-              name="name"
-              className="w-full rounded border border-gray-300 bg-white px-3 py-1 text-base leading-8 text-gray-700 outline-none transition-colors duration-200 ease-in-out focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
-            />
-          </div>{" "}
-          <div className="relative mb-4">
-            <label htmlFor="name" className="text-sm leading-7 text-gray-600">
-              notes
-            </label>
-            <textarea
-              onChange={(e) => setNotes(e.target.value)}
-              value={notes}
-              id="name"
-              name="name"
-              className="w-full rounded border border-gray-300 bg-white px-3 py-1 text-base leading-8 text-gray-700 outline-none transition-colors duration-200 ease-in-out focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
-            ></textarea>
-          </div>
-          <label htmlFor="name" className="text-sm leading-7 text-gray-600">
-            Map
-          </label>
-          <div className=" mb-4 mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
-            <div className="text-center">
-              <PhotoIcon
-                className="mx-auto h-12 w-12 text-gray-300"
-                aria-hidden="true"
-              />
-              <div className="mt-4 flex text-sm leading-6 text-gray-600">
-                <label
-                  htmlFor="file-upload"
-                  className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
-                >
-                  <span>Upload a file</span>
-                  <input
-                    id="file-upload"
-                    name="file-upload"
-                    type="file"
-                    className="sr-only"
-                  />
-                </label>
-                <p className="pl-1">or drag and drop</p>
-              </div>
-              <p className="text-xs leading-5 text-gray-600">
-                PNG, JPG, PDF up to 10MB
-              </p>
-            </div>
+            {json.map((section) => (
+              <>{getInput(section)}</>
+            ))}
           </div>
         </form>
         <div className="mt-6 flex items-center justify-end gap-x-6">
@@ -244,7 +156,6 @@ function NewProperty({ params }) {
             </button>{" "}
           </Link>
           <button
-            onClick={handleCreateProperty}
             type="submit"
             className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
@@ -256,4 +167,4 @@ function NewProperty({ params }) {
   );
 }
 
-export default NewProperty;
+export default NewWalkthrough;
