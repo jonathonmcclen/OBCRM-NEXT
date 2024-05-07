@@ -204,6 +204,35 @@ function NewWalkthrough({ params }) {
     }
   };
 
+  const [today, setToday] = useState("");
+
+  //get properties list for select input
+  useEffect(() => {
+    const todaysDate = new Date();
+    let day = "";
+
+    switch (todaysDate.getDay()) {
+      case 0:
+        day = "Sun";
+      case 1:
+        day = "Mon";
+      case 2:
+        day = "Tue";
+      case 3:
+        day = "Wed";
+      case 4:
+        day = "Thur";
+      case 5:
+        day = "Fri";
+      case 6:
+        day = "Sat";
+    }
+
+    setToday(
+      `${day} ${todaysDate.getDate()}, ${todaysDate.getMonth()} / ${todaysDate.getFullYear()}`,
+    );
+  }, []);
+
   return (
     <>
       <div>
@@ -212,6 +241,10 @@ function NewWalkthrough({ params }) {
             <h1 className="text-4xl font-semibold leading-6 text-gray-900">
               Walkthrough
             </h1>
+            <h1 className="mt-2 text-2xl font-semibold leading-6 text-gray-900">
+              {today}
+            </h1>
+
             <p className="mt-2 text-sm text-gray-700">
               A list of all the properties in your account including their name,
               address, and notes.

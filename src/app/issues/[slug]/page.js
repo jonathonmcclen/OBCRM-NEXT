@@ -33,7 +33,14 @@ async function DisplayIssue({ params }) {
   return (
     <>
       <title>{`${issue?.status} Issue ${issue?.id} | ${issue?.properties?.name} | ${issue?.description?.substring(0, 30)}`}</title>
-      <meta name="description" content={issue?.description} />{" "}
+      <meta name="description" content={issue?.description} />
+      <meta
+        property="og:image"
+        content={
+          "https://bcnnvbpbwelebmdyvesf.supabase.co/storage/v1/object/public/issues/" +
+          issue?.images[0]
+        }
+      ></meta>
       <div className="mt-6 flex items-center justify-end gap-x-6">
         <Link href="/issues">
           <button
