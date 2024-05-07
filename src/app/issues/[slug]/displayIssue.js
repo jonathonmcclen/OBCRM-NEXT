@@ -56,8 +56,9 @@ function DisplayIssue({ id }) {
   useEffect(() => {
     console.log(issue);
     if (issue) {
-      console.log(Date(parseInt(issue.created_at) * 1000));
-      setCreated(Date(parseInt(issue.created_at) * 1000));
+      console.log("TIME");
+      console.log(Date(issue.created_at));
+      // setCreated(Date(parseInt(issue.created_at) * 1000));
     }
   }, [issue]);
 

@@ -4,12 +4,11 @@ import Link from "next/link";
 import { supabaseClient as supabase } from "../../../config/supabase-client";
 import { PaperClipIcon } from "@heroicons/react/20/solid";
 import {
-  BuildingOfficeIcon,
-  CreditCardIcon,
   ClipboardDocumentListIcon,
   UserIcon,
   UsersIcon,
   MapPinIcon,
+  ArchiveBoxIcon,
 } from "@heroicons/react/20/solid";
 import PropertyIssues from "../components/propertyIssues";
 
@@ -21,6 +20,7 @@ const tabs = [
     icon: ClipboardDocumentListIcon,
     current: false,
   },
+  { name: "Inventory", href: "#", icon: ArchiveBoxIcon, current: false },
   { name: "Contacts", href: "#", icon: UsersIcon, current: false },
   { name: "Location", href: "#", icon: MapPinIcon, current: false },
 ];
