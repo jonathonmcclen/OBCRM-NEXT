@@ -85,7 +85,8 @@ function Issues() {
         <div className="sm:flex sm:items-center">
           <div className="sm:flex-auto">
             <h1 className="text-4xl font-semibold leading-6 text-gray-900">
-              Issues
+              {"( "}
+              {issues.length} {")"} Issues
             </h1>
             <p className="mt-2 text-sm text-gray-700">
               A list of all the issues in your account including their name,

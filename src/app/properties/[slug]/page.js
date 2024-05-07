@@ -20,6 +20,12 @@ const tabs = [
     icon: ClipboardDocumentListIcon,
     current: false,
   },
+  {
+    name: "Walkthroughs",
+    href: "#",
+    icon: ClipboardDocumentListIcon,
+    current: false,
+  },
   { name: "Inventory", href: "#", icon: ArchiveBoxIcon, current: false },
   { name: "Contacts", href: "#", icon: UsersIcon, current: false },
   { name: "Location", href: "#", icon: MapPinIcon, current: false },

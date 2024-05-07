@@ -10,26 +10,25 @@ import {
 } from "@heroicons/react/24/outline";
 
 function Properties() {
-  const [properties, setProperties] = useState([]);
+  const [walkthroughs, setWalkthroughs] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function getProperties() {
+    async function getWalkthroughs() {
       setLoading(true);
 
       let { data, error } = await supabase
         .from("walkthroughs")
-        .select(`* , properties (*)`);
+        .select(`* , properties (*), profiles(full_name)`);
 
       if (error) {
         console.warn(error);
       } else if (data) {
-        setProperties(data);
+        setWalkthroughs(data);
       }
       setLoading(false);
     }
-    getProperties();
-    console.log(properties);
+    getWalkthroughs();
   }, []);
 
   return (
@@ -91,7 +90,7 @@ function Properties() {
                               scope="col"
                               className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                             >
-                              Score
+                              Notes
                             </th>
                             <th
                               scope="col"
@@ -102,7 +101,7 @@ function Properties() {
                           </tr>
                         </thead>
                         <tbody className="bg-white">
-                          {properties.map((prop) => (
+                          {walkthroughs.map((prop) => (
                             <tr key={prop.id} className="even:bg-gray-50">
                               <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-3">
                                 {prop.id}
@@ -112,15 +111,19 @@ function Properties() {
                                   className="text-indigo-600 hover:text-indigo-900"
                                   href={"/properties/" + prop.id}
                                 >
-                                  {prop.name}
+                                  {prop.properties?.name}
                                 </Link>
                               </td>
                               <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                {prop.notes?.substring(0, 30)}...
+                                {prop.profiles?.full_name}
                               </td>
                               <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                {prop.address_1}, {prop.city} {prop.state},{" "}
-                                {prop.zip}
+                                <Link
+                                  className="text-indigo-600 hover:text-indigo-900"
+                                  href={"/properties/" + prop.id}
+                                >
+                                  {prop.notes}...
+                                </Link>
                               </td>
                               <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-3">
                                 <Link

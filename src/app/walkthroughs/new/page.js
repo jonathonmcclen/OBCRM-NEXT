@@ -159,14 +159,14 @@ function NewWalkthrough({ params }) {
   }, []);
 
   // create issue
-  const handleCreateIssue = async function () {
+  const handleCreateWalkthrough = async function () {
     if (params.slug) {
       const { data, error } = await supabase
         .from("walkthroughs")
         .update([
           {
             reporter: currentUser.simp_id,
-            description: description,
+            notes: description,
             property: property,
           },
         ])
@@ -187,7 +187,7 @@ function NewWalkthrough({ params }) {
         .insert([
           {
             reporter: currentUser.simp_id,
-            description: description,
+            notes: description,
             property: property,
           },
         ])
@@ -338,7 +338,8 @@ function NewWalkthrough({ params }) {
             </button>{" "}
           </Link>
           <button
-            type="submit"
+            onClick={handleCreateWalkthrough}
+            // type="submit"
             className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
             Save
