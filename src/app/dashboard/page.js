@@ -157,6 +157,7 @@ export default function Dashboard() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   return (
     <>
+      <title>Dashboard | Regent Services</title>
       <main>
         <div className="relative isolate overflow-hidden">
           {/* Secondary navigation */}

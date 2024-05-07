@@ -26,6 +26,8 @@ function Properties() {
 
   return (
     <>
+      <title>Clients | Regent Services</title>
+
       <div className="">
         <div className="sm:flex sm:items-center">
           <div className="sm:flex-auto">

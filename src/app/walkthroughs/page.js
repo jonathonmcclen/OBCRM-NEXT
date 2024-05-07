@@ -34,7 +34,7 @@ function Properties() {
 
   return (
     <>
-      <title>Properties | Regent Services</title>
+      <title>Walkthroughs | Regent Services</title>
       <div className="">
         <div className="sm:flex sm:items-center">
           <div className="sm:flex-auto">

@@ -27,6 +27,8 @@ function Contacts() {
 
   return (
     <>
+      <title>Contacts | Regent Services</title>
+
       <div className="">
         <div className="sm:flex sm:items-center">
           <div className="sm:flex-auto">
