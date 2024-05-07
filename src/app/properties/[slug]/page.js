@@ -36,23 +36,24 @@ function classNames(...classes) {
 }
 
 function Property({ params }) {
-  // const params = useParams();
-  // const { id, tab } = params;
   const [loading, setLoading] = useState();
   const [property, setProperty] = useState();
 
   const [currentTab, setCurrentTab] = useState("General");
 
   useEffect(() => {
-    // if (tab == "Open Issues") {
-    //   setCurrentTab("Open Issues");
-    // } else if (tab == "Contacts") {
-    //   setCurrentTab("Contacts");
-    // } else if (tab == "Location") {
-    //   setCurrentTab("Location");
-    // } else {
-    //   setCurrentTab("General");
-    // }
+    if (params.tab == "OpenIssues") {
+      setCurrentTab("Open Issues");
+    } else if (params.tab == "Contacts") {
+      setCurrentTab("Contacts");
+    } else if (params.tab == "Location") {
+      setCurrentTab("Location");
+    } else {
+      setCurrentTab("General");
+    }
+    console.log("TABSSBSBSBSBSBS");
+    console.log(params.tab);
+
     async function getProperty() {
       setLoading(true);
 

@@ -29,7 +29,11 @@ async function DisplayIssue({ params }) {
   let created = "";
   let currentTab = "General";
   const issue = await getIssue();
-  console.log(issue);
+
+  if (usePathname().includes("open")) {
+    currentTab = "Open Issues";
+  }
+
   return (
     <>
       <title>{`${issue?.status} Issue ${issue?.id} | ${issue?.properties?.name} | ${issue?.description?.substring(0, 30)}`}</title>
