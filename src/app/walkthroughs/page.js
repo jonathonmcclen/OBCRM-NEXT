@@ -109,7 +109,7 @@ function Properties() {
                               <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                 <Link
                                   className="text-indigo-600 hover:text-indigo-900"
-                                  href={"/properties/" + prop.id}
+                                  href={"/properties/" + prop.properties?.id}
                                 >
                                   {prop.properties?.name}
                                 </Link>
@@ -122,7 +122,7 @@ function Properties() {
                                   className="text-indigo-600 hover:text-indigo-900"
                                   href={"/properties/" + prop.id}
                                 >
-                                  {prop.notes}...
+                                  {prop.notes?.substring(0, 80)}...
                                 </Link>
                               </td>
                               <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-3">
