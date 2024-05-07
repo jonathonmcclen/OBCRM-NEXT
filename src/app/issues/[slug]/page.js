@@ -33,6 +33,7 @@ async function DisplayIssue({ params }) {
   return (
     <>
       <title>{`${issue?.status} Issue ${issue?.id} | ${issue?.properties?.name} | ${issue?.description?.substring(0, 30)}`}</title>
+      <meta name="description" content={issue?.description} />{" "}
       <div className="mt-6 flex items-center justify-end gap-x-6">
         <Link href="/issues">
           <button
@@ -104,7 +105,6 @@ async function DisplayIssue({ params }) {
           </div>
         </div>
       </div>
-
       {currentTab == "General" && (
         <>
           {issue && (
@@ -188,9 +188,7 @@ async function DisplayIssue({ params }) {
           )}
         </>
       )}
-
       {currentTab == "Followups" && <FollowUps id={id} />}
-
       {/* <Transition.Root show={open} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={setOpen}>
           <Transition.Child
