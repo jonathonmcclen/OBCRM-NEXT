@@ -13,13 +13,14 @@ import {
 
 function Issues() {
   const [issues, setIssues] = useState([]);
+  const [count, setCount] = useState("");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function getIssues() {
       setLoading(true);
 
-      let { data, error } = await supabase
+      let { data, count, error } = await supabase
         .from("work_orders")
         .select(
           `id, reporter, type, description, assignee, status, properties (
@@ -27,18 +28,24 @@ function Issues() {
         ), profiles!public_work_orders_reporter_fkey (
           full_name,id
         )`,
+          { count: "exact" },
         )
-        .range(0, 4);
+        .range(0, 24);
 
       if (error) {
         console.warn(error);
       } else if (data) {
+        setCount(count);
         setIssues(data);
       }
       setLoading(false);
     }
     getIssues();
   }, []);
+
+  useEffect(() => {
+    console.log(count);
+  }, [count]);
 
   async function getOpenIssues() {
     setLoading(true);
@@ -87,12 +94,9 @@ function Issues() {
     setLoading(false);
   }
 
-  useEffect(() => {
-    console.log(issues);
-  }, [issues]);
-
   return (
     <>
+      {console.log(issues)}
       <title>Issues | Regent Services</title>
       <div className="">
         <div className="sm:flex sm:items-center">
@@ -254,9 +258,14 @@ function Issues() {
                         <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
                           <div>
                             <p className="text-sm text-gray-700">
-                              Showing <span className="font-medium">1</span> to{" "}
-                              <span className="font-medium">10</span> of{" "}
-                              <span className="font-medium">97</span> results
+                              Showing <span className="font-medium">1</span> to
+                              <span className="font-medium">
+                                {" "}
+                                {issues.length}
+                              </span>{" "}
+                              of
+                              <span className="font-medium"> {count} </span>
+                              results
                             </p>
                           </div>
                           <div>

@@ -51,8 +51,6 @@ function Property({ params }) {
     } else {
       setCurrentTab("General");
     }
-    console.log("TABSSBSBSBSBSBS");
-    console.log(params.tab);
 
     async function getProperty() {
       setLoading(true);
@@ -79,6 +77,7 @@ function Property({ params }) {
 
   return (
     <>
+      <title>Property | Regent Services</title>
       <div>
         <div className="sm:flex sm:items-center">
           <div className="sm:flex-auto">

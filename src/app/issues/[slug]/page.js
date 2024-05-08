@@ -30,9 +30,9 @@ async function DisplayIssue({ params }) {
   let currentTab = "General";
   const issue = await getIssue();
 
-  if (usePathname().includes("open")) {
-    currentTab = "Open Issues";
-  }
+  // if (usePathname().includes("open")) {
+  //   currentTab = "Open Issues";
+  // }
 
   return (
     <>
