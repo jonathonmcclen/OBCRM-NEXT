@@ -16,7 +16,11 @@ async function DisplayIssue({ params }) {
   async function getIssue() {
     let { data, error } = await supabase
       .from("work_orders")
-      .select(`*, properties (*)`)
+      .select(
+        `*, properties (*), profiles!public_work_orders_reporter_fkey (
+        full_name,id
+      )`,
+      )
       .eq("id", params.slug)
       .single();
     if (error) {
@@ -182,7 +186,7 @@ async function DisplayIssue({ params }) {
                       Property
                     </dt>
                     <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                      {/* {issue?.properties.name} */}
+                      {issue?.properties.name}
                     </dd>
                   </div>
                   <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
@@ -190,7 +194,7 @@ async function DisplayIssue({ params }) {
                       Reporter
                     </dt>
                     <dd className="mt-2 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                      <p>{issue.reporter}</p>
+                      <p>{issue?.profiles?.full_name}</p>
                     </dd>
                   </div>
                 </dl>

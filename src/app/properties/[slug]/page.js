@@ -42,7 +42,7 @@ function Property({ params }) {
   const [currentTab, setCurrentTab] = useState("General");
 
   useEffect(() => {
-    if (params.tab == "OpenIssues") {
+    if (params.tab == "open") {
       setCurrentTab("Open Issues");
     } else if (params.tab == "Contacts") {
       setCurrentTab("Contacts");

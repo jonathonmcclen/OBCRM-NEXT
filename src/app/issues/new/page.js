@@ -261,8 +261,12 @@ function NewIssue({ params }) {
                 <option>Stain Interior Tile/Other</option>
                 <option>Stain Exterior Concrete</option>
                 <option>Stain Exterior Wall</option>
+                <option>Carpet Stain</option>
+                <option>Carpet Dirt/Other</option>
                 <option>Dirty Glass</option>
                 <option>Broken Glass</option>
+                <option>Homeless</option>
+                <option>Graffiti</option>
                 <option>Bio</option>
                 <option>Other</option>
               </select>
