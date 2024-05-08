@@ -30,6 +30,7 @@ function Issues() {
         )`,
           { count: "exact" },
         )
+        .order("id", { ascending: false })
         .range(0, 24);
 
       if (error) {
@@ -60,6 +61,7 @@ function Issues() {
       )`,
       )
       .eq("status", "Open")
+      .order("id", { ascending: false })
       .range(0, 24);
 
     if (error) {

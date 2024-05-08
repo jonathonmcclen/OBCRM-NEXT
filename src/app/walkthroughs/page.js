@@ -19,7 +19,8 @@ function Properties() {
 
       let { data, error } = await supabase
         .from("walkthroughs")
-        .select(`* , properties (*), profiles(full_name)`);
+        .select(`* , properties (*), profiles(full_name)`)
+        .order("created_at", { ascending: false });
 
       if (error) {
         console.warn(error);

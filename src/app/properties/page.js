@@ -14,7 +14,8 @@ function Properties() {
 
       let { data, error } = await supabase
         .from("properties")
-        .select(`id, name, notes, address_1, city, state, zip`);
+        .select(`id, name, notes, address_1, city, state, zip`)
+        .order("id", { ascending: false });
 
       if (error) {
         console.warn(error);
