@@ -153,6 +153,12 @@ function Issues() {
                           <tr>
                             <th
                               scope="col"
+                              className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                            >
+                              Actions
+                            </th>
+                            <th
+                              scope="col"
                               className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-3"
                             >
                               ID
@@ -187,17 +193,27 @@ function Issues() {
                             >
                               Description
                             </th>{" "}
-                            <th
-                              scope="col"
-                              className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                            >
-                              Actions
-                            </th>
                           </tr>
                         </thead>
                         <tbody className="bg-white">
                           {issues?.map((prop) => (
                             <tr key={prop.id} className="even:bg-gray-50">
+                              <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-sm font-medium sm:pr-3">
+                                <Link
+                                  className="text-indigo-600 hover:text-indigo-900"
+                                  href={"/issues/" + prop.id + "/edit"}
+                                >
+                                  <PencilIcon className="mr-2 inline-block h-[18px]" />
+                                </Link>
+                                <Link
+                                  className="text-indigo-600 hover:text-indigo-900"
+                                  href={"/issues/" + prop.id}
+                                >
+                                  <EyeIcon className="mr-2 inline-block h-[20px]" />
+                                </Link>
+                                <TrashIcon className="mr-2 inline-block h-[20px]" />
+                                <span className="sr-only">, {prop.name}</span>
+                              </td>
                               <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-3">
                                 {prop.id}
                               </td>
@@ -220,23 +236,6 @@ function Issues() {
                               </td>
                               <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                 {prop.description?.substring(0, 30)}
-                              </td>
-
-                              <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-3">
-                                <Link
-                                  className="text-indigo-600 hover:text-indigo-900"
-                                  href={"/issues/" + prop.id + "/edit"}
-                                >
-                                  <PencilIcon className="mr-2 inline-block h-[18px]" />
-                                </Link>
-                                <Link
-                                  className="text-indigo-600 hover:text-indigo-900"
-                                  href={"/issues/" + prop.id}
-                                >
-                                  <EyeIcon className="mr-2 inline-block h-[20px]" />
-                                </Link>
-                                <TrashIcon className="mr-2 inline-block h-[20px]" />
-                                <span className="sr-only">, {prop.name}</span>
                               </td>
                             </tr>
                           ))}
