@@ -16,6 +16,9 @@ function Issues() {
   const [count, setCount] = useState("");
   const [loading, setLoading] = useState(true);
 
+  const [start, setStart] = useState(0);
+  const [end, setEnd] = useState(24);
+
   useEffect(() => {
     async function getIssues() {
       setLoading(true);
@@ -198,45 +201,47 @@ function Issues() {
                         <tbody className="bg-white">
                           {issues?.map((prop) => (
                             <tr key={prop.id} className="even:bg-gray-50">
-                              <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-sm font-medium sm:pr-3">
-                                <Link
-                                  className="text-indigo-600 hover:text-indigo-900"
-                                  href={"/issues/" + prop.id + "/edit"}
-                                >
-                                  <PencilIcon className="mr-2 inline-block h-[18px]" />
-                                </Link>
-                                <Link
-                                  className="text-indigo-600 hover:text-indigo-900"
-                                  href={"/issues/" + prop.id}
-                                >
-                                  <EyeIcon className="mr-2 inline-block h-[20px]" />
-                                </Link>
-                                <TrashIcon className="mr-2 inline-block h-[20px]" />
-                                <span className="sr-only">, {prop.name}</span>
-                              </td>
-                              <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-3">
-                                {prop.id}
-                              </td>
-                              <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                <Link
-                                  className="text-indigo-600 hover:text-indigo-900"
-                                  href={"/properties/" + prop.properties.id}
-                                >
-                                  {prop.properties.name}
-                                </Link>
-                              </td>
-                              <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                {prop.profiles?.full_name}
-                              </td>
-                              <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                {prop.status}
-                              </td>
-                              <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                {prop.type}
-                              </td>
-                              <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                {prop.description?.substring(0, 30)}
-                              </td>
+                              <Link href={"/issues/" + prop.id}>
+                                <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-sm font-medium sm:pr-3">
+                                  <Link
+                                    className="text-indigo-600 hover:text-indigo-900"
+                                    href={"/issues/" + prop.id + "/edit"}
+                                  >
+                                    <PencilIcon className="mr-2 inline-block h-[18px]" />
+                                  </Link>
+                                  <Link
+                                    className="text-indigo-600 hover:text-indigo-900"
+                                    href={"/issues/" + prop.id}
+                                  >
+                                    <EyeIcon className="mr-2 inline-block h-[20px]" />
+                                  </Link>
+                                  <TrashIcon className="mr-2 inline-block h-[20px]" />
+                                  <span className="sr-only">, {prop.name}</span>
+                                </td>
+                                <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-3">
+                                  {prop.id}
+                                </td>
+                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                  <Link
+                                    className="text-indigo-600 hover:text-indigo-900"
+                                    href={"/properties/" + prop.properties.id}
+                                  >
+                                    {prop.properties.name}
+                                  </Link>
+                                </td>
+                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                  {prop.profiles?.full_name}
+                                </td>
+                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                  {prop.status}
+                                </td>
+                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                  {prop.type}
+                                </td>
+                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                  {prop.description?.substring(0, 30)}
+                                </td>
+                              </Link>
                             </tr>
                           ))}
                         </tbody>
