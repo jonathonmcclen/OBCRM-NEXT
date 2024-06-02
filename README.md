@@ -1,29 +1,49 @@
-# Create T3 App
+# OBCRM - Office Business Commercial Relationship Management
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+## Overview
 
-## What's next? How do I make an app with this?
+**OBCRM** is an industry-specific property and task management software designed for commercial buildings and high-rises. It is mobile-friendly and optimized for property managers who need to handle a variety of issues efficiently. With OBCRM, you can manage properties, tasks, and contacts seamlessly, ensuring that you stay on top of all your responsibilities without cluttering your phone's storage.
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+## Features
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+- **Property Management**: Keep track of all your commercial properties in one place. Add detailed information about each building, including location, size, and other relevant details.
+- **Task Management**: Create, assign, and monitor tasks related to property management. Tasks can be timestamped and are easily searchable.
+- **Mobile-first Design**: Capture and upload photos directly from your phone to the CRM, ensuring that all issues are documented and stored without using your phone's storage.
+- **Contact Directory**: A built-in contact directory that allows you to handle new issues quickly, even if you don't know who to call. Associate contacts with specific buildings or clients and add descriptions to know who to call for what.
+- **Issue Tracking**: Track issues with ease, keeping all records organized and accessible. Timestamp and search functionalities make it easier than ever to manage problems.
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+## Getting Started
 
-## Learn More
+### Prerequisites
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+- A modern web browser (Chrome, Firefox, Safari, or Edge)
+- Mobile device with a camera for optimal use of photo upload features
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+### Installation
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+1. **Sign Up**: Register for an OBCRM account on our [website](https://www.obcrm.com/signup).
+2. **Download the Mobile App**: Available on both [iOS App Store](https://apps.apple.com) and [Google Play Store](https://play.google.com).
+3. **Log In**: Use your credentials to log in to the app and start managing your properties and tasks.
 
-## How do I deploy this?
+### Usage
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+1. **Add Properties**: Navigate to the 'Properties' section and add details about each commercial building you manage.
+2. **Create Tasks**: Go to the 'Tasks' section to create and assign tasks. Add photos by capturing them directly from your phone.
+3. **Manage Contacts**: In the 'Contacts' section, add and manage contacts. Link them to specific properties or clients and include descriptions for easier identification.
+4. **Track Issues**: Use the search and timestamp features to track and manage issues efficiently.
+
+## Support
+
+For help and support, visit our [Help Center](https://www.obcrm.com/help) or contact our support team at [support@obcrm.com](mailto:support@obcrm.com).
+
+## Contributing
+
+We welcome contributions from the community. If you would like to contribute, please fork the repository and submit a pull request. For major changes, please open an issue first to discuss what you would like to change.
+
+## License
+
+OBCRM is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
+
+## Contact
+
+For any inquiries, please contact us at [info@obcrm.com](mailto:info@obcrm.com).
